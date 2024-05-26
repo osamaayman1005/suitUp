@@ -1,4 +1,4 @@
-package com.suitupautotest.api;
+package com.github.osamaayman1005.api;
 
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
