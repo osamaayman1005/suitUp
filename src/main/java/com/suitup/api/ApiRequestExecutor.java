@@ -7,19 +7,10 @@ import io.restassured.specification.RequestSpecification;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class BaseApi {
-
-    private static String url;
-
-    public static String getUrl() {
-        return url;
-    }
-    public static void setUrl(String url) {
-        BaseApi.url = url;
-    }
+public abstract class ApiRequestExecutor {
     /*
-        ################### POST ###################
-         */
+     ################### POST ###################
+     */
     public static ApiResponse post(String path, Map<String, Object> requestBody){
         return post(path,requestBody, new HashMap<>());
     }
@@ -27,7 +18,7 @@ public abstract class BaseApi {
                                       Map<String, String> requestHeaders){
         return new ApiResponse(RestAssured.given().when().spec(getSpecifications()).log().all()
                 .headers(requestHeaders)
-                .baseUri(url)
+                .baseUri(EnvironmentConfiguration.getBaseUrl())
                 .body(requestBody)
                 .post(path));
     }
@@ -41,7 +32,7 @@ public abstract class BaseApi {
                                      Map<String, String> requestHeaders){
         return new ApiResponse(RestAssured.given().when().spec(getSpecifications())
                 .headers(requestHeaders)
-                .baseUri(url)
+                .baseUri(EnvironmentConfiguration.getBaseUrl())
                 .body(requestBody)
                 .put(path));
     }
@@ -55,7 +46,7 @@ public abstract class BaseApi {
                                        Map<String, String> requestHeaders){
         return new ApiResponse(RestAssured.given().when().spec(getSpecifications())
                 .headers(requestHeaders)
-                .baseUri(url)
+                .baseUri(EnvironmentConfiguration.getBaseUrl())
                 .body(requestBody)
                 .patch(path));
     }
@@ -72,7 +63,7 @@ public abstract class BaseApi {
                                      Map<String, String> requestHeaders){
         return new ApiResponse(RestAssured.given().when().spec(getSpecifications())
                 .headers(requestHeaders)
-                .baseUri(url)
+                .baseUri(EnvironmentConfiguration.getBaseUrl())
                 .params(requestParameters)
                 .get(path));
     }
@@ -86,13 +77,13 @@ public abstract class BaseApi {
         return new ApiResponse(
                 RestAssured.given().when().spec(getSpecifications())
                         .headers(requestHeaders)
-                        .baseUri(url)
+                        .baseUri(EnvironmentConfiguration.getBaseUrl())
                         .delete(path));
     }
     private static RequestSpecification getSpecifications(){
     RequestSpecification requestSpecification;
-    if (AuthenticationSpecification.getAuthenticationSpecification()!=null){
-        requestSpecification = AuthenticationSpecification.getAuthenticationSpecification();
+    if (AuthenticationConfiguration.getAuthenticationSpecification()!=null){
+        requestSpecification = AuthenticationConfiguration.getAuthenticationSpecification();
     }
     else {
         requestSpecification = new RequestSpecBuilder().build();

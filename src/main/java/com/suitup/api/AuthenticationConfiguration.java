@@ -3,7 +3,7 @@ package com.suitup.api;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 
-public class AuthenticationSpecification {
+public class AuthenticationConfiguration {
     private static RequestSpecification authenticationSpecification;
     public static void setAuthenticationToken(String authenticationKey, String authenticationValue){
         authenticationSpecification = new RequestSpecBuilder().
