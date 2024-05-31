@@ -4,20 +4,23 @@ package com.suitup.api;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 
-public class ApiResponse {
+public class ApiResult {
     private final int statusCode;
     private final JsonPath body;
     private final long time;
+    private final String curl;
 
-    public ApiResponse(int code, JsonPath body, long time) {
+    public ApiResult(int code, JsonPath body, long time, String curl) {
         this.statusCode = code;
         this.body = body;
         this.time = time;
+        this.curl = curl;
     }
-    public ApiResponse(Response response) {
+    public ApiResult(Response response, String curl) {
         this.statusCode = response.getStatusCode();
         this.body = response.jsonPath();
         this.time = response.getTime();
+        this.curl = curl;
     }
 
     public int getStatusCode() {
@@ -33,7 +36,9 @@ public class ApiResponse {
     public long getTime() {
         return time;
     }
-
+    public String getCurl() {
+        return curl;
+    }
     @Override
     public String toString() {
         return "ApiResponse{" +
