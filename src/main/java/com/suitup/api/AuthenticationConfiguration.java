@@ -1,22 +1,24 @@
 package com.suitup.api;
 
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.specification.RequestSpecification;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AuthenticationConfiguration {
-    private static RequestSpecification authenticationSpecification;
-    public static void setAuthenticationToken(String authenticationKey, String authenticationValue){
-        authenticationSpecification = new RequestSpecBuilder().
-                addHeader(authenticationKey, authenticationValue).build();
+    private static Map<String, String> authenticationTokens = new HashMap<>();
+    public static void addAuthenticationToken(String authenticationKey, String authenticationValue){
+        authenticationTokens.put(authenticationKey,authenticationValue);
     }
-    public static void setBearerAuthenticationToken(String token){
-        setAuthenticationToken("authentication", "bearer " + token);
+    public static void addBearerAuthenticationToken(String token){
+        addAuthenticationToken("authentication", "bearer " + token);
     }
-    public static void removeAuthentication(String token){
-        authenticationSpecification = null;
+    public static void removeAuthenticationToken(String authenticationKey){
+        authenticationTokens.remove(authenticationKey);
     }
-    public static RequestSpecification getAuthenticationSpecification() {
-        return authenticationSpecification;
+    public static void removeAllAuthenticationTokens(){
+        authenticationTokens = new HashMap<>();
+    }
+    public static Map<String, String> getAuthenticationTokens() {
+        return authenticationTokens;
     }
 
 }
