@@ -1,4 +1,4 @@
-package com.suitup.api;
+package com.suitup.api.configuration;
 
 public class EnvironmentConfiguration {
     private static String baseUrl;

@@ -1,4 +1,6 @@
-package com.suitup.api;
+package com.suitup.api.curl;
+
+import com.suitup.api.configuration.EnvironmentConfiguration;
 
 import java.util.Map;
 
@@ -10,10 +12,10 @@ public class CurlBuilder {
         return queryParamsBuilder.toString();
     }
 
-    static String createCurl(String requestMethod, String path,
-                             Map<String, Object> requestParameters,
-                             Map<String, Object> requestBody,
-                             Map<String, String> requestHeaders){
+    public static String createCurl(String requestMethod, String path,
+                                    Map<String, Object> requestParameters,
+                                    Map<String, Object> requestBody,
+                                    Map<String, String> requestHeaders){
         StringBuilder curlBuilder = new StringBuilder("curl ");
         // Append base URL and path
         curlBuilder.append("'").append(EnvironmentConfiguration.getBaseUrl())

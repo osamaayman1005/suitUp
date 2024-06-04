@@ -1,4 +1,4 @@
-package com.suitup.api;
+package com.suitup.api.configuration;
 
 import java.util.HashMap;
 import java.util.Map;

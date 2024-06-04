@@ -1,4 +1,4 @@
-package com.suitup.api;
+package com.suitup.api.model;
 
 
 import io.restassured.path.json.JsonPath;
