@@ -1,6 +1,12 @@
 package com.suitup.api;
 
+import com.suitup.api.configuration.AuthenticationConfiguration;
+import com.suitup.api.configuration.EnvironmentConfiguration;
+import com.suitup.api.curl.CurlBuilder;
+import com.suitup.api.model.ApiRequest;
+import com.suitup.api.model.ApiResult;
 import io.restassured.RestAssured;
+import io.restassured.http.Method;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -92,6 +98,17 @@ public abstract class ApiRequestExecutor {
                         .headers(requestHeaders)
                         .baseUri(EnvironmentConfiguration.getBaseUrl())
                         .delete(path), curl);
+    }
+    public static ApiResult execute(ApiRequest apiRequest){
+        String curl = CurlBuilder.createCurl(apiRequest.getHttpMethod().value,
+                apiRequest.getEndpoint(),apiRequest.getParameters(),
+                apiRequest.getBody(),apiRequest.getHeaders());
+        return new ApiResult(
+                RestAssured.given().when()
+                        .headers(apiRequest.getHeaders())
+                        .baseUri(apiRequest.getBaseUrl())
+                        .request(Method.valueOf(apiRequest.getHttpMethod().value.toUpperCase()),
+                                apiRequest.getEndpoint()), curl);
     }
 
 }
