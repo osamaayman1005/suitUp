@@ -31,7 +31,7 @@ you can use post, get, put, patch and delete requests by statically call any of 
 Example:
 ```java
 public class LoginApi {
-    public static ApiResponse login(String email, String password){
+    public static ApiResult login(String email, String password){
         return ApiRequestExecutor.post("auth/login", new HashMap<>(){{
             put("email", email);
             put("password", password);
