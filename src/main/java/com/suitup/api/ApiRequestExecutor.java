@@ -21,6 +21,7 @@ public abstract class ApiRequestExecutor {
     public static ApiResult post(String path, Map<String, Object> requestBody,
                                  Map<String, String> requestHeaders){
         requestHeaders.putAll(AuthenticationConfiguration.getAuthenticationTokens());
+        requestHeaders.put("Content-Type", "application/json");
         String curl = CurlBuilder.createCurl("post",
                 path,null,requestBody,requestHeaders);
         return new ApiResult(RestAssured.given().when()
@@ -38,6 +39,7 @@ public abstract class ApiRequestExecutor {
     public static ApiResult put(String path, Map<String, Object> requestBody,
                                 Map<String, String> requestHeaders){
         requestHeaders.putAll(AuthenticationConfiguration.getAuthenticationTokens());
+        requestHeaders.put("Content-Type", "application/json");
         String curl = CurlBuilder.createCurl("put",
                 path,null,requestBody,requestHeaders);
         return new ApiResult(RestAssured.given().when()
@@ -55,6 +57,7 @@ public abstract class ApiRequestExecutor {
     public static ApiResult patch(String path, Map<String, Object> requestBody,
                                   Map<String, String> requestHeaders){
         requestHeaders.putAll(AuthenticationConfiguration.getAuthenticationTokens());
+        requestHeaders.put("Content-Type", "application/json");
         String curl = CurlBuilder.createCurl("patch",
                 path,null,requestBody,requestHeaders);
         return new ApiResult(RestAssured.given().when()

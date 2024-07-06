@@ -93,6 +93,8 @@ public class SuitUpTests {
                 "}'";
         ApiRequest request = CurlParser.parseCurl(curl);
         Assert.assertNotNull(request);
+        ApiResult apiResult = ApiRequestExecutor.execute(request);
+        System.out.println(apiResult.getCurl());
     }
 
 

@@ -1,8 +1,11 @@
 package com.suitup.api.curl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.suitup.api.configuration.EnvironmentConfiguration;
 
 import java.util.Map;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 public class CurlBuilder {
     static String generateQueryParameters(Map<String, Object> requestParameters) {
@@ -32,8 +35,12 @@ public class CurlBuilder {
         }
         // Append request body
         if (requestBody != null && !requestBody.isEmpty()) {
-            curlBuilder.append("-d '").append(requestBody.toString()).append("' ");
-        }
+            try {
+                String jsonBody = new ObjectMapper().writeValueAsString(requestBody);
+                curlBuilder.append("-d '").append(jsonBody).append("' \n");
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }        }
 
         return curlBuilder.toString();
     }
